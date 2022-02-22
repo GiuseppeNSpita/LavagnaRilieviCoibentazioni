@@ -1,0 +1,42 @@
+
+              body{
+
+                font-family:"arial"
+
+              }
+
+              .cont{
+
+                display:flex;
+
+                margin:auto;
+
+              }
+
+              .cont > div{
+
+                flex:1 ;
+
+              }
+
+              canvas{
+
+                background: white;
+
+                border:solid 1px grey;
+
+                cursor:crosshair;
+
+              }
+
+              #tools{
+
+                background:rgba(228,228,228,0.7);
+
+                padding:20px 5px;
+
+                text-align:center;
+
+                max-width:300px;
+
+              }

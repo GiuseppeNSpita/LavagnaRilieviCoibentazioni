@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>Canvas in HTML 5</title>
+
+</head>
+
+<body>
+
+    <div class="cont">
+
+
+
+        <!-- AREA STRUMENTI -->
+
+              <div id="tools">
+
+                <h3>Impostazioni</h3>
+
+        
+
+                <label for="spessore">Spessore pennello</label>
+
+                <input id="spessore" type="range" min="1" max="30" value="10" onchange="AggiornaTools()">
+
+                <br>  
+
+                <br> 
+
+        
+
+                <label for="colore">Colore
+
+        </label>
+
+                <input id="colore" type="color" onchange="AggiornaTools()">
+
+                <br>  
+
+                <br> 
+
+        
+
+                <label for="forma">Forma</label>
+
+                <select id="forma" onchange="AggiornaTools()">
+
+                  <option value="round">Rotondo
+
+                  </option>
+
+                  <option value="square">Quadrato
+
+                  </option> 
+
+                  <option value="butt">Linea
+
+                  </option>
+
+                </select>
+
+                <br>
+
+                <br>
+
+        
+
+                <button onclick="Reset()">
+
+                  Cancella tutto
+
+                </button>
+
+
+
+                <button onclick="Stop()">
+
+                    Stop Linea
+
+                  </button>
+
+
+
+                  <button onclick="Griglia()">
+
+                    Griglia
+
+                  </button>
+
+                  <button onclick="Color_Aqua()" style="background-color: aqua">
+
+                    1/2"
+
+                  </button>
+                  <button onclick="Color_Blue()" style="background-color: blue">
+
+                    3/4"
+
+                  </button>
+                  <button onclick="Color_Orange()" style="background-color: orange">
+
+                    1"
+
+                  </button>
+
+              </div>
+
+        
+
+        
+
+        <!-- AREA DI DISEGNO -->
+
+              <div id="area">
+                <canvas id="canvas">
+                </canvas>
+                 <!--<input id="text_box" type="text"/>-->
+              </div>
+            </div>     
+            
+
+        
+        
+</body>
+
+        <!-- SOURCE -->
+        <style src="style.css"></style>
+        <script src="script.js"></script>
+</html>
+
