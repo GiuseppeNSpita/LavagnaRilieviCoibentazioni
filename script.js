@@ -1,6 +1,6 @@
 
         /* VARIABILI */
-        var pennello, colore, spessore;
+        var pennello = "round", colore, spessore = 7;
 /* COLORI
 
 1/2" - aqua	#00ffff
@@ -60,6 +60,8 @@ let color_violet	= "#ee82ee";
         let flag = 0;
         let paint = false;
 
+        let colore_griglia = "rgba(0,0,0,0.3)";
+
         const canvas = document.querySelector('#canvas');
         const ctx = canvas.getContext('2d');
 
@@ -71,12 +73,13 @@ let color_violet	= "#ee82ee";
           Stop();
         }
 
-        function AggiornaTools()
+        /*function AggiornaTools()
         {
           pennello = document.getElementById("forma").value;
           colore = document.getElementById("colore").value;
           spessore = document.getElementById("spessore").value;
         }
+        */
 
         function Stop()
         {
@@ -87,11 +90,15 @@ let color_violet	= "#ee82ee";
         function Posizione_1(event)
         {  
             paint = true;        
-            if(event.clientX - canvas.offsetLeft > -1 )
+            if((event.clientX- canvas.offsetLeft) > -1 && (event.clientY - canvas.offsetTop) >  -1 )
             {
                 cord_1.x = parseInt(Math.round((event.clientX - canvas.offsetLeft)/quadrato_griglia)*quadrato_griglia);
                 cord_1.y = parseInt(Math.round((event.clientY - canvas.offsetTop)/quadrato_griglia)*quadrato_griglia);
                 flag++;
+               /* 
+                ctx.strokeText(event.clientX - canvas.offsetLeft, 50, 50);
+                ctx.strokeText(event.clientY - canvas.offsetTop, 50, 100);
+                */
             }
         }        
 
@@ -112,8 +119,8 @@ let color_violet	= "#ee82ee";
 
           ctx.moveTo(cord_2.x, cord_2.y);
                 
-          if(event.clientX - canvas.offsetLeft > -1 )
-          {//ctx.strokeStyle = "rgba(0,0,120,0.3)";
+          if((event.clientX- canvas.offsetLeft) > -1 && (event.clientY - canvas.offsetTop) >  -1 )
+            {//ctx.strokeStyle = "rgba(0,0,120,0.3)";
             
             cord_2.x = parseInt(Math.round((event.clientX - canvas.offsetLeft)/quadrato_griglia)*quadrato_griglia);
             cord_2.y = parseInt(Math.round((event.clientY - canvas.offsetTop)/quadrato_griglia)*quadrato_griglia);
@@ -124,8 +131,8 @@ let color_violet	= "#ee82ee";
           /* ESEMPIO  DA CANCELLARE --> DA REIMPOSTARE ANCHE CTX.STROKESTYLE PER L'OPACITA' */
           ctx.moveTo(cord_2.x, cord_2.y);
                 
-          if(event.clientX - canvas.offsetLeft > -1 )
-          {ctx.strokeStyle = "rgba(0,0,0,1)";
+          if((event.clientX- canvas.offsetLeft) > -1 && (event.clientY - canvas.offsetTop) >  -1 )
+            {ctx.strokeStyle = "rgba(0,0,0,1)";
           ctx.lineWidth = 1;
             cord_2.x = parseInt(Math.round((event.clientX - canvas.offsetLeft)/quadrato_griglia)*quadrato_griglia);
             cord_2.y = parseInt(Math.round((event.clientY - canvas.offsetTop)/quadrato_griglia)*quadrato_griglia);
@@ -135,25 +142,58 @@ let color_violet	= "#ee82ee";
           } 
         }
 
-        function Griglia(event)
+        function Griglia()
         {
-            for(let i = 0; i <= width_canvas; i = i+10)
+          ctx.strokeStyle = colore_griglia;
+          ctx.lineWidth = 0.5;
+          //Diagonali /         
+          ctx.beginPath();
+          for(let i = 10; i <= width_canvas; i = i+10)
             {
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
                 ctx.moveTo(i, 0);
-                ctx.lineTo(i, width_canvas);
-                ctx.stroke();
-            }
+                ctx.lineTo(0, i);
 
-            for(let i = 0; i <= height_canvas; i = i+10)
-            {
-                ctx.lineWidth = 0.5;
+                ctx.moveTo(width_canvas, i);
+                ctx.lineTo(i, width_canvas);
+
+            }
+            //Diagonali \
+            for(let i = 10; i <= height_canvas; i = i+10)
+            {      
+              /*   FIGATA PAZZESCA     
                 ctx.beginPath();
                 ctx.moveTo(0, i);
-                ctx.lineTo(height_canvas, i);
+                ctx.lineTo(height_canvas, height_canvas - i);
                 ctx.stroke();
+*/
+                ctx.moveTo(i, 0);
+                ctx.lineTo(height_canvas, height_canvas - i);              
+                
+                ctx.moveTo(0, height_canvas - i);
+                ctx.lineTo(i, height_canvas );
+
             }
+            ctx.stroke();
+            //Cornice
+            ctx.beginPath();
+            ctx.lineWidth = 3;
+                ctx.moveTo(0, 0);
+                ctx.lineTo(width_canvas, 0 );
+
+                ctx.moveTo(width_canvas, 0);
+                ctx.lineTo(width_canvas, height_canvas );
+
+                ctx.moveTo(width_canvas, height_canvas);
+                ctx.lineTo(0, height_canvas );
+
+                ctx.moveTo(0, height_canvas);
+                ctx.lineTo(0, 0 );
+
+                ctx.stroke();
+
+                ctx.strokeStyle = colore;
+                ctx.lineWidth = spessore;
+      
         }
        
 function Color_Aqua()
@@ -179,7 +219,7 @@ function Color_Orange()
 
         window.addEventListener('load', ()=>{
           Reset();
-          AggiornaTools();
+          //AggiornaTools();
           document.addEventListener('mousedown', Posizione_1);
           document.addEventListener('mouseup', Move);
           document.addEventListener('dbclick', Stop);
