@@ -88,17 +88,20 @@ let color_violet	= "#ee82ee";
         }    
         
         function Posizione_1(event)
-        {  
+        {  ctx.lineJoin = "bevel";
             paint = true;        
             if((event.clientX- canvas.offsetLeft) > -1 && (event.clientY - canvas.offsetTop) >  -1 )
             {
-                cord_1.x = parseInt(Math.round((event.clientX - canvas.offsetLeft)/quadrato_griglia)*quadrato_griglia);
+              if((event.clientX- canvas.offsetLeft) < width_canvas && (event.clientY - canvas.offsetTop) <  height_canvas )
+            {
+              cord_1.x = parseInt(Math.round((event.clientX - canvas.offsetLeft)/quadrato_griglia)*quadrato_griglia);
                 cord_1.y = parseInt(Math.round((event.clientY - canvas.offsetTop)/quadrato_griglia)*quadrato_griglia);
                 flag++;
-               /* 
+               /*
                 ctx.strokeText(event.clientX - canvas.offsetLeft, 50, 50);
                 ctx.strokeText(event.clientY - canvas.offsetTop, 50, 100);
                 */
+            }
             }
         }        
 
@@ -121,24 +124,30 @@ let color_violet	= "#ee82ee";
                 
           if((event.clientX- canvas.offsetLeft) > -1 && (event.clientY - canvas.offsetTop) >  -1 )
             {//ctx.strokeStyle = "rgba(0,0,120,0.3)";
-            
+              if((event.clientX- canvas.offsetLeft) < width_canvas && (event.clientY - canvas.offsetTop) <  height_canvas )
+              {
             cord_2.x = parseInt(Math.round((event.clientX - canvas.offsetLeft)/quadrato_griglia)*quadrato_griglia);
             cord_2.y = parseInt(Math.round((event.clientY - canvas.offsetTop)/quadrato_griglia)*quadrato_griglia);
             ctx.lineTo(cord_2.x, cord_2.y);
             ctx.stroke();
+              }
           } 
           
           /* ESEMPIO  DA CANCELLARE --> DA REIMPOSTARE ANCHE CTX.STROKESTYLE PER L'OPACITA' */
           ctx.moveTo(cord_2.x, cord_2.y);
                 
           if((event.clientX- canvas.offsetLeft) > -1 && (event.clientY - canvas.offsetTop) >  -1 )
-            {ctx.strokeStyle = "rgba(0,0,0,1)";
+            {
+              if((event.clientX- canvas.offsetLeft) < width_canvas && (event.clientY - canvas.offsetTop) <  height_canvas )
+              {
+                ctx.strokeStyle = "rgba(0,0,0,1)";
           ctx.lineWidth = 1;
             cord_2.x = parseInt(Math.round((event.clientX - canvas.offsetLeft)/quadrato_griglia)*quadrato_griglia);
             cord_2.y = parseInt(Math.round((event.clientY - canvas.offsetTop)/quadrato_griglia)*quadrato_griglia);
             ctx.lineTo(cord_2.x, cord_2.y);
             ctx.stroke();
             ctx.strokeStyle = colore;
+              }
           } 
         }
 
