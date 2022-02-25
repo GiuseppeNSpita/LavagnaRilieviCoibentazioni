@@ -50,8 +50,8 @@ let color_violet	= "#ee82ee";
 
         let cord_griglia = { x:0 , y:0};
 
-        let width_canvas = 700;       
-        let height_canvas = 700;
+        let width_canvas = 595;//'595px';       
+        let height_canvas = 842;//'842px';
         let quadrato_griglia = 10;
         
         let cordtext_x = 0;
@@ -62,9 +62,24 @@ let color_violet	= "#ee82ee";
 
         let colore_griglia = "rgba(0,0,0,0.3)";
 
+        let dpi = window.devicePixelRatio;
+        
         const canvas = document.querySelector('#canvas');
         const ctx = canvas.getContext('2d');
-
+        
+        
+        //SET CANVAS DPI
+        //function fix_dpi() {
+          //get CSS height
+          //the + prefix casts it to an integer
+          //the slice method gets rid of "px"
+          let style_height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
+          //get CSS width
+          let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+          //scale the canvas
+          canvas.setAttribute('height', style_height * dpi);
+          canvas.setAttribute('width', style_width * dpi);
+         // }
         /* FUNZIONI */
         function Reset()
         {
@@ -88,7 +103,8 @@ let color_violet	= "#ee82ee";
         }    
         
         function Posizione_1(event)
-        {  ctx.lineJoin = "bevel";
+        { 
+          ctx.lineJoin = "bevel"; //Determina il tipo di angolo "curvato" si crea
             paint = true;        
             if((event.clientX- canvas.offsetLeft) > -1 && (event.clientY - canvas.offsetTop) >  -1 )
             {
@@ -155,9 +171,15 @@ let color_violet	= "#ee82ee";
         {
           ctx.strokeStyle = colore_griglia;
           ctx.lineWidth = 0.5;
+/*ctx.width = width_canvas;
+          ctx.height = height_canvas;
+          
+          ctx.canvas.style.height ='8420px';
+          ctx.canvas.style.width = '4950px';*/
+
           //Diagonali /         
           ctx.beginPath();
-          for(let i = 10; i <= width_canvas; i = i+10)
+          for(let i = quadrato_griglia; i <= width_canvas; i = i+quadrato_griglia)
             {
                 ctx.moveTo(i, 0);
                 ctx.lineTo(0, i);
@@ -167,7 +189,7 @@ let color_violet	= "#ee82ee";
 
             }
             //Diagonali \
-            for(let i = 10; i <= height_canvas; i = i+10)
+            for(let i = quadrato_griglia; i <= height_canvas; i = i+quadrato_griglia)
             {      
               /*   FIGATA PAZZESCA     
                 ctx.beginPath();
